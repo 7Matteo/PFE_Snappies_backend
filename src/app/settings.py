@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-3o8(y-ct^%jmk890lnr6=w7=pkvs5!4-o-d3at326)=kx1g%%4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'snappies',
-
+    'corsheaders'
 ]
 
 
@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ###    'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,6 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Cela permet au serveur Django d'accepter les requêtes de n'importe quel origine
+
 
 
 # Internationalization
