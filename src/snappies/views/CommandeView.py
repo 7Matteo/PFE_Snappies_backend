@@ -1,12 +1,11 @@
 import json
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 
-from .LoginView import is_admin
 from ..models import Commande
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 def get_commande(request, commande_id):
     if request.method == 'GET':
@@ -17,16 +16,27 @@ def get_commande(request, commande_id):
         except Commande.DoesNotExist:
             return HttpResponse(status=404)
 
-
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_commandes(request):
-    if request.method == 'GET':
+    
+    user = request.user
+    if user.is_admin:
+    
         commandes = Commande.objects.all()
         commandes_data = [{'id': commande.id, 'value': commande.value} for commande in commandes]
         return HttpResponse(json.dumps(commandes_data), content_type='application/json')
-    
-@user_passes_test(is_admin)
+    else:
+        return JsonResponse({'error': 'You are not authorized to create a commande'})        
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def create_commande(request):
-    if request.method == 'POST':
+    user = request.user
+    if user.is_admin:
         data = json.loads(request.body)
         id = data.get('id')
         value = data.get('value')
@@ -34,9 +44,10 @@ def create_commande(request):
         commandes_data = {'id': commande.id, 'value': commande.value}
 
         commande.save()
-        return HttpResponse(json.dumps(commandes_data))
+        return Response(commandes_data)
     else:
-        return HttpResponse('error')
+        return JsonResponse({'error': 'You are not authorized to create a commande', 'token =': TokenAuthentication})        
+    
     
 def display_hello_world(request):
     message = { 'message': 'Hello World!' }

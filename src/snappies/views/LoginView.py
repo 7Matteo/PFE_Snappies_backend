@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
+from rest_framework.authtoken.models import Token
 
 from ..models import User
 
@@ -67,15 +68,17 @@ def login(request):
         
        
         if authenticate_user is not None:
-            # Authentification réussie, maintenant vous pouvez appeler login
+            # Authentification réussie, maintenant pn appel le login
             auth_login(request, authenticate_user)
             
+            token, created = Token.objects.get_or_create(user=authenticate_user)
+
             if authenticate_user.is_admin:
                 role='admin'
             else:
                 role='livreur'
             
-            return JsonResponse({'message': 'Login is valid', 'role':role})
+            return JsonResponse({'message': 'Login is valid', 'role':role , 'token':token.key})
         else:
             return JsonResponse({'error': 'Invalid credentials'}, status=401)
     else:
@@ -88,7 +91,6 @@ def logout_user(request, username):
     except User.DoesNotExist:
         return JsonResponse({'error': 'User not found', 'user not found ':user}, status=404)
 
-    # Déconnexion de l'utilisateur spécifique
     logout(request)
 
     return JsonResponse({'message': f'Logout successful for user: {username}'})
