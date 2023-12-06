@@ -34,6 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,18 +45,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'snappies'
+    'snappies',
+
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+###    'django.middleware.csrf.CsrfViewMiddleware',
+AUTH_USER_MODEL = 'snappies.User'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+ ]
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -70,6 +82,7 @@ DATABASES = {
         'PORT': env("DB_PORT"),
     }
 }
+
 
 
 TEMPLATES = [
@@ -91,9 +104,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 
 
 
