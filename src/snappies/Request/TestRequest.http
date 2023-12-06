@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "id":"6",  
-  "value": "souli"
+  "value": "billyCommande"
 }
 
 ###
@@ -12,7 +12,35 @@ GET http://localhost:8000/commande/getAll
 
 
 ###
-GET http://localhost:8000/commande/getOne/5
+GET http://localhost:8000/commande/getOne/1
+
+### login an user
+POST http://localhost:8000/login/loginUser
+Content-Type: application/json
+
+{
+    "username": "admin2",
+    "password": "aze"
+}
 
 ###
-GET http://localhost:8000/commande/helloWorld
+GET http://localhost:8000/login/getAllUsers
+
+### Créer un utilisateur avec la méthode POST
+POST http://localhost:8000/login/create
+Content-Type: application/json
+
+{
+  "username": "admin2",
+  "password": "aze",  
+  "is_admin": true
+}
+
+### delete user
+DELETE http://localhost:8000/login/delete_user/1
+
+###
+POST http://localhost:8000/login/logout/admin2
+Content-Type: application/json
+
+{}

@@ -20,5 +20,7 @@ from snappies import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('commande/', include(urls))
+    path('commande/', include(urls)),
+    path('login/', include(urls))
+
 ]

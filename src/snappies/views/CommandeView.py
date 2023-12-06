@@ -1,8 +1,12 @@
 import json
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Commande
+
+from .LoginView import is_admin
+from ..models import Commande
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 def get_commande(request, commande_id):
     if request.method == 'GET':
@@ -20,7 +24,7 @@ def get_commandes(request):
         commandes_data = [{'id': commande.id, 'value': commande.value} for commande in commandes]
         return HttpResponse(json.dumps(commandes_data), content_type='application/json')
     
-@csrf_exempt
+@user_passes_test(is_admin)
 def create_commande(request):
     if request.method == 'POST':
         data = json.loads(request.body)
