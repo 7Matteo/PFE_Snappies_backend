@@ -59,7 +59,7 @@ Content-Type: application/json
 DELETE http://localhost:8000/login/delete_user/1
 
 ###
-POST http://localhost:8000/login/logout/ronaldo
+POST http://localhost:8000/login/logout/admin3
 Content-Type: application/json
 
 {}
