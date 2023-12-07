@@ -54,3 +54,11 @@ models.signals.post_save.connect(create_token_for_user, sender=User)
         
         
         
+class Client(models.Model):
+    id_client = models.AutoField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=100)
+    numero_telephone = models.CharField(max_length=100)
+    adresse = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

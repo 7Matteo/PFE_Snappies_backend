@@ -33,7 +33,7 @@ POST http://localhost:8000/login/loginUser
 Content-Type: application/json
 
 {
-    "username": "ronaldo",
+    "username": "admin2",
     "password": "aze"
 }
 
@@ -63,3 +63,19 @@ POST http://localhost:8000/login/logout/ronaldo
 Content-Type: application/json
 
 {}
+
+
+### Créer un client 
+POST http://localhost:8000/client/create_client
+Content-Type: application/json
+Authorization: Token 0aa1967b91c4c1232cf87c8c6373a035d08255d2
+
+{
+  "name": "client 4",
+  "numero_telephone": "7787878",  
+  "adresse": "chausse de gand"
+}
+
+### delete client
+DELETE http://localhost:8000/client/delete_client/2
+Authorization: Token 0aa1967b91c4c1232cf87c8c6373a035d08255d2
