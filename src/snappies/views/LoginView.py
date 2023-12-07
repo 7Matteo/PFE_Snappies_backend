@@ -4,6 +4,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
+from django.contrib.sessions.models import Session
+from django.utils import timezone
 
 from ..models import User
 

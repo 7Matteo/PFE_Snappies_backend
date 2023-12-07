@@ -51,6 +51,6 @@ def create_token_for_user(sender, instance, created, **kwargs):
 
 models.signals.post_save.connect(create_token_for_user, sender=User)
         
-
-
-   
+        
+        
+        

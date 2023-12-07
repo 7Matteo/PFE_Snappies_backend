@@ -9,6 +9,16 @@ Authorization: Token 0aa1967b91c4c1232cf87c8c6373a035d08255d2
 }
 
 ## token admin2 = 0aa1967b91c4c1232cf87c8c6373a035d08255d2
+##47cf7bb92dbfa2649aa20fd3ff1fa82de9a94771
+
+### Update commande by id 
+PUT http://localhost:8000/commande/update_commande/1
+Content-Type: application/json
+Authorization: Token 0aa1967b91c4c1232cf87c8c6373a035d08255d2
+
+{
+  "value": "Commande Updated"
+}
 
 ###
 GET http://localhost:8000/commande/getAll
@@ -30,6 +40,11 @@ Content-Type: application/json
 ###
 GET http://localhost:8000/login/getAllUsers
 
+
+###
+GET http://localhost:8000/login/get_users_connected
+
+
 ### Créer un utilisateur avec la méthode POST
 POST http://localhost:8000/login/create
 Content-Type: application/json
@@ -44,7 +59,7 @@ Content-Type: application/json
 DELETE http://localhost:8000/login/delete_user/1
 
 ###
-POST http://localhost:8000/login/logout/admin2
+POST http://localhost:8000/login/logout/ronaldo
 Content-Type: application/json
 
 {}

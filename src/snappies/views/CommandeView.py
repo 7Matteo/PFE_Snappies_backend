@@ -31,6 +31,35 @@ def get_commandes(request):
         return JsonResponse({'error': 'You are not authorized to create a commande'})        
 
 
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_commande(request, commande_id):
+    user = request.user
+    if user.is_admin:
+        try:
+            commande = Commande.objects.get(id=commande_id)
+            data = json.loads(request.body)
+            
+            # Update the fields if present in the request data
+            if 'value' in data:
+                commande.value = data['value']
+            
+            # Save the updated Commande instance
+            commande.save()
+
+            # Return the updated data as a response
+            updated_data = {'id': commande.id, 'value': commande.value}
+            return Response(updated_data)
+        except Commande.DoesNotExist:
+            return JsonResponse({'error': 'Commande not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'You are not authorized to update a commande'})
+
+    
+    
+
+
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
